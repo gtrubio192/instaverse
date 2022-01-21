@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import useStyles from './styles'
 import { TextField, Button, Typography, Paper } from '@material-ui/core'
+import FileBase from 'react-file-base64'
 
 const Form = () => {
   const classes = useStyles()
@@ -10,9 +11,13 @@ const Form = () => {
 
   }
 
+  const clear = () => {
+
+  }
+
   return (
     <Paper className={classes.paper}>
-      <form autoComplete="off" noValidate className={classes.form} onSubmit={handleSubmit}>
+      <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography variant="h6">
           Creating a Post
         </Typography>
@@ -56,6 +61,15 @@ const Form = () => {
           value={postData.selectedFile}
           onChange={(e) => setPostData({ ...postData, selectedFile: e.target.value })}
         />               
+        <div className={classes.fileInput}>
+          <FileBase
+            type="file"
+            multiple={false}
+            onDone={(base64) => setPostData({ ...postData, selectedFile: base64 })}
+          />
+        </div>
+        <Button className={classes.buttonSubmit} variant="contained" size="large" type="submit" color="primary" fullWidth>Submit</Button>
+        <Button variant="contained" size="small" onClick={clear} color="secondary" fullWidth>Clear</Button>
       </form>
     </Paper>
   )
