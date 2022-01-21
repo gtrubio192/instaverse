@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useStyles from './styles'
 import { TextField, Button, Typography, Paper } from '@material-ui/core'
 
 const Form = () => {
   const classes = useStyles()
+  const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: ''})
 
   const handleSubmit = () => {
 
@@ -20,8 +21,8 @@ const Form = () => {
           variant="outlined"
           label="Creator"
           fullWidth
-          value={}
-          onChange={}
+          value={postData.creator}
+          onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
         />
       </form>
     </Paper>
