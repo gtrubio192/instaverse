@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux'    // Provider gives access to global state from any component
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
@@ -8,6 +8,8 @@ import App from './App'
 
 import reducers from './reducers/index'
 
+// Set up redux, need to set up store first
+// Store is initialized from the reducers
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 ReactDOM.render(
