@@ -2,8 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';    // instaverse :: instaverse123
 import cors from 'cors';
+import 'dotenv/config';
 
-import postRoutes from './routes/posts.js'
+import postRoutes from './routes/posts.js';
 
 const app = express()
 
@@ -13,9 +14,8 @@ app.use(cors());
 
 app.use('/posts', postRoutes)
 
-const CONNECTION_URL = 'mongodb+srv://instaverse:instaverse123@cluster0.ur29w.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const CONNECTION_URL = process.env.MONGO_DB_URL
 
-// 'mongodb+srv://instaverse:<password>@cluster0.ur29w.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000
 
 // , { useNewURLParser: true, useUnifiedTopology: true }
