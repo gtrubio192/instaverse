@@ -1,5 +1,5 @@
 import express from 'express'
-import { getPosts, createPosts } from '../controllers/posts.js'
+import { getPosts, createPost } from '../controllers/posts.js'
 
 const router = express.Router()
 
@@ -12,6 +12,6 @@ const router = express.Router()
 // 2nd draft:
 // remove all logic from callback as to reduce clutter, move logic to controller
 router.get('/', getPosts)
-router.get('/', createPosts)
+router.post('/', createPost)
 
 export default router;

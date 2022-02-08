@@ -14,6 +14,8 @@ app.use(cors());
 app.use('/posts', postRoutes)
 
 const CONNECTION_URL = 'mongodb+srv://instaverse:instaverse123@cluster0.ur29w.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
+// 'mongodb+srv://instaverse:<password>@cluster0.ur29w.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000
 
 // , { useNewURLParser: true, useUnifiedTopology: true }
