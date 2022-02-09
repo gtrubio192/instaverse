@@ -8,6 +8,7 @@ import { createPost } from '../../actions/posts'
 const Form = () => {
   const classes = useStyles()
   const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: ''})
+  const [formError, setFormError] = useState(false)
   const dispatch = useDispatch()
 
   // useEffect(() => {
@@ -16,9 +17,13 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('submit post data: :', postData)
-    dispatch(createPost(postData))
-    clear()
+    if (!postData.selectedFile) {
+      setFormError(true)
+    } else {
+      setFormError(false)
+      dispatch(createPost(postData))
+      clear()
+    }
   }
 
   const clear = () => {
@@ -46,6 +51,7 @@ const Form = () => {
           label="Title"
           fullWidth
           key={2}
+          required
           value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
@@ -55,6 +61,7 @@ const Form = () => {
           label="Message"
           fullWidth
           key={3}
+          required
           value={postData.message}
           onChange={(e) => setPostData({ ...postData, message: e.target.value })}
         />
@@ -64,20 +71,25 @@ const Form = () => {
           label="Tags"
           fullWidth
           key={4}
+          required
           value={postData.tags}
           onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
         /> 
         <div className={classes.fileInput}>
           <FileBase64
             type="file"
+            required
             key={666}
             multiple={false}
             onDone={({ base64 }) => {
-              console.log('onDone firing...')
+              setFormError(false)
               setPostData({ ...postData, selectedFile: base64 })
             }}
           />
         </div>
+        {
+          formError && <Typography variant="subtitle2" gutterBottom component="div">Post must include a picture!</Typography>
+        }
         <Button className={classes.buttonSubmit} variant="contained" size="large" type="submit" color="primary" fullWidth>Submit</Button>
         <Button variant="contained" size="small" onClick={clear} color="secondary" fullWidth>Clear</Button>
       </form>
